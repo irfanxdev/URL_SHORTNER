@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
+import "./App.css";
 import * as authService from "./api/auth";
 import * as urlService from "./api/url";
-import AuthPage from "./pages/AuthPage";
-import Dashboard from "./pages/Dashboard";
-import LandingPage from "./pages/LandingPage";
-import Navbar from "./components/Navbar";
+import AuthPage from "./pages/AuthPage.jsx";
+import Dashboard from "./pages/Dashboard.jsx";
+import LandingPage from "./pages/LandingPage.jsx";
+import Navbar from "./components/Navbar.jsx";
 
 const API_BASE_URL = "";
 
@@ -92,7 +93,7 @@ function App() {
   };
 
   return (
-    <div className="w-full p-8 relative min-h-screen">
+    <div className="App">
       <Navbar
         isLogged={isLogged}
         onLogin={openLogin}
@@ -131,4 +132,3 @@ function App() {
 }
 
 export default App;
-
