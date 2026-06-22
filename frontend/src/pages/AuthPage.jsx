@@ -2,56 +2,94 @@ import React from "react";
 
 const AuthPage = ({ isSignup, setIsSignup, authForm, setAuthForm, handleAuth, loading, error }) => {
   return (
-    <div className="bg-white border-4 border-black rounded-[24px] p-12 shadow-[10px_10px_0px_0px_rgba(0,0,0,1)] animate-fadeIn max-w-[500px] mx-auto mt-32 mb-8">
-      <h1 className="text-4xl font-black mb-2 text-black text-center uppercase">{isSignup ? "Create Account" : "Welcome Back"}</h1>
-      <p className="text-gray-600 text-center mb-10">{isSignup ? "Sign up to start shortening links" : "Sign in to access your dashboard"}</p>
-      
-      <form className="flex flex-col gap-4" onSubmit={handleAuth}>
-        {isSignup && (
-          <input
-            type="text"
-            placeholder="Full Name"
-            className="w-full bg-white border-2 border-black rounded-sm p-4 text-black text-lg focus:outline-none focus:ring-4 focus:ring-indigo-100 transition-all"
-            value={authForm.name}
-            onChange={(e) => setAuthForm({...authForm, name: e.target.value})}
-            required
-          />
-        )}
-        <input
-          type="email"
-          placeholder="Email"
-          className="w-full bg-white border-2 border-black rounded-sm p-4 text-black text-lg focus:outline-none focus:ring-4 focus:ring-indigo-100 transition-all"
-          value={authForm.email}
-          onChange={(e) => setAuthForm({...authForm, email: e.target.value})}
-          required
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          className="w-full bg-white border-2 border-black rounded-sm p-4 text-black text-lg focus:outline-none focus:ring-4 focus:ring-indigo-100 transition-all"
-          value={authForm.password}
-          onChange={(e) => setAuthForm({...authForm, password: e.target.value})}
-          required
-        />
-        {error && <p className="text-black font-black text-center mb-4 uppercase text-sm">ERROR: {error}</p>}
-        <button 
-          type="submit" 
-          className="w-full bg-black text-white border-2 border-black p-4 font-black text-lg uppercase hover:bg-white hover:text-black hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all disabled:opacity-50" 
-          disabled={loading}
-        >
-          {loading ? "Processing..." : (isSignup ? "Sign Up" : "Sign In")}
-        </button>
-      </form>
-      
-      <p className="text-center mt-6 text-gray-600">
-        {isSignup ? "Already have an account?" : "New here?"} {" "}
-        <span 
-          onClick={() => setIsSignup(!isSignup)} 
-          className="text-black cursor-pointer font-bold underline">
-          {isSignup ? "Sign In" : "Sign Up"}
-        </span>
-      </p>
-    </div>
+    <main className="auth-page">
+      <section className="auth-hero" aria-label="MiniURL authentication">
+        <div className="auth-badge">MiniURL Access</div>
+        <h1>{isSignup ? "Create your workspace" : "Welcome back"}</h1>
+        <p>
+          {isSignup
+            ? "Start managing cleaner links, sharper campaigns, and simple click insights in one place."
+            : "Sign in to shorten links, review performance, and keep your best URLs close at hand."}
+        </p>
+
+        <div className="auth-preview" aria-hidden="true">
+          <div className="preview-bar">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <div className="preview-link">mini.url/summer-drop</div>
+          <div className="preview-stats">
+            <div>
+              <strong>12.8k</strong>
+              <span>Clicks</span>
+            </div>
+            <div>
+              <strong>99%</strong>
+              <span>Uptime</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="auth-card">
+        <div className="auth-card-header">
+          <span>{isSignup ? "Get started" : "Account login"}</span>
+          <h2>{isSignup ? "Sign up" : "Sign in"}</h2>
+          <p>{isSignup ? "Create an account in a few seconds." : "Use your email and password to continue."}</p>
+        </div>
+
+        <form className="auth-form" onSubmit={handleAuth}>
+          {isSignup && (
+            <label className="form-field">
+              <span>Full name</span>
+              <input
+                type="text"
+                placeholder="Alex Morgan"
+                value={authForm.name}
+                onChange={(e) => setAuthForm({ ...authForm, name: e.target.value })}
+                required
+              />
+            </label>
+          )}
+
+          <label className="form-field">
+            <span>Email address</span>
+            <input
+              type="email"
+              placeholder="you@example.com"
+              value={authForm.email}
+              onChange={(e) => setAuthForm({ ...authForm, email: e.target.value })}
+              required
+            />
+          </label>
+
+          <label className="form-field">
+            <span>Password</span>
+            <input
+              type="password"
+              placeholder="Enter your password"
+              value={authForm.password}
+              onChange={(e) => setAuthForm({ ...authForm, password: e.target.value })}
+              required
+            />
+          </label>
+
+          {error && <p className="auth-error">ERROR: {error}</p>}
+
+          <button className="auth-submit" type="submit" disabled={loading}>
+            {loading ? "Processing..." : isSignup ? "Create account" : "Sign in"}
+          </button>
+        </form>
+
+        <p className="auth-switch">
+          {isSignup ? "Already have an account?" : "New here?"}{" "}
+          <button type="button" onClick={() => setIsSignup(!isSignup)}>
+            {isSignup ? "Sign in" : "Create an account"}
+          </button>
+        </p>
+      </section>
+    </main>
   );
 };
 
