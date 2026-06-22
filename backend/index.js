@@ -30,8 +30,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-// ✅ Serve static files from React build
-const buildPath = path.join(__dirname, "../frontend/build");
+// Serve static files from Vite build
+const buildPath = path.join(__dirname, "../frontend/dist");
 app.use(express.static(buildPath));
 
 // Routes
@@ -82,3 +82,4 @@ mongoose
   .catch((err) => {
     console.error("❌ Error connecting to MongoDB:", err);
   });
+
